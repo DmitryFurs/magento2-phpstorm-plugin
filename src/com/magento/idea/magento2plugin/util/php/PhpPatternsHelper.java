@@ -2,6 +2,7 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
+
 package com.magento.idea.magento2plugin.util.php;
 
 import com.intellij.patterns.ElementPattern;
@@ -10,6 +11,9 @@ import com.intellij.psi.PsiElement;
 import com.jetbrains.php.lang.PhpLanguage;
 import com.jetbrains.php.lang.patterns.PhpPatterns;
 import com.jetbrains.php.lang.psi.elements.ParameterList;
+import com.jetbrains.php.lang.psi.elements.impl.ArrayHashElementImpl;
+import com.jetbrains.php.lang.psi.elements.impl.PhpPsiElementImpl;
+import com.jetbrains.php.lang.psi.elements.impl.StringLiteralExpressionImpl;
 
 public class PhpPatternsHelper {
     public static final ElementPattern<? extends PsiElement> STRING_METHOD_ARGUMENT =
@@ -23,4 +27,12 @@ public class PhpPatternsHelper {
                             .phpFunctionReference()
                     )
             ).withLanguage(PhpLanguage.INSTANCE);
+
+    public static final ElementPattern<? extends PsiElement> CONFIGPHP_MODULE =
+        PlatformPatterns.psiElement(StringLiteralExpressionImpl.class)
+            .withSuperParent(5,PlatformPatterns.psiElement(ArrayHashElementImpl.class)
+                .withChild(PlatformPatterns.psiElement(PhpPsiElementImpl.class)
+                    .withChild(PlatformPatterns.psiElement(StringLiteralExpressionImpl.class))
+                )
+            );
 }

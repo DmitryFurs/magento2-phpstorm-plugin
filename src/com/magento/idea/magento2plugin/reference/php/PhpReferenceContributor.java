@@ -6,6 +6,7 @@ package com.magento.idea.magento2plugin.reference.php;
 
 import com.intellij.psi.PsiReferenceContributor;
 import com.intellij.psi.PsiReferenceRegistrar;
+import com.magento.idea.magento2plugin.reference.provider.ModuleNameReferenceProvider;
 import com.magento.idea.magento2plugin.util.php.PhpPatternsHelper;
 import com.magento.idea.magento2plugin.reference.provider.EventDispatchReferenceProvider;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,12 @@ public class PhpReferenceContributor extends PsiReferenceContributor {
         registrar.registerReferenceProvider(
                 PhpPatternsHelper.STRING_METHOD_ARGUMENT,
                 new EventDispatchReferenceProvider()
+        );
+
+        // 'Vendor_Module' => 1
+        registrar.registerReferenceProvider(
+                PhpPatternsHelper.CONFIGPHP_MODULE,
+                new ModuleNameReferenceProvider()
         );
     }
 }
