@@ -28,6 +28,7 @@ public class PhpPatternsHelper {
                     )
             ).withLanguage(PhpLanguage.INSTANCE);
 
+    /* TODO: Works right until 'modules' key */
     public static final ElementPattern<? extends PsiElement> CONFIGPHP_MODULE =
         PlatformPatterns.psiElement(StringLiteralExpressionImpl.class)
             .withSuperParent(5,PlatformPatterns.psiElement(ArrayHashElementImpl.class)

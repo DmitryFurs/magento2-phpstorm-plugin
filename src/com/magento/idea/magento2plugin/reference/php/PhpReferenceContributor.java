@@ -13,14 +13,18 @@ import org.jetbrains.annotations.NotNull;
 
 public class PhpReferenceContributor extends PsiReferenceContributor {
     @Override
-    public void registerReferenceProviders(@NotNull PsiReferenceRegistrar registrar) {
+    public void registerReferenceProviders(@NotNull final PsiReferenceRegistrar registrar) {
         // ->dispatch("event_name")
         registrar.registerReferenceProvider(
                 PhpPatternsHelper.STRING_METHOD_ARGUMENT,
                 new EventDispatchReferenceProvider()
         );
 
-        // 'Vendor_Module' => 1
+        /*
+          'modules' => [
+            'Vendor_Module' => 1
+          ]
+         */
         registrar.registerReferenceProvider(
                 PhpPatternsHelper.CONFIGPHP_MODULE,
                 new ModuleNameReferenceProvider()
