@@ -15,6 +15,8 @@ import com.jetbrains.php.lang.psi.elements.impl.ArrayHashElementImpl;
 import com.jetbrains.php.lang.psi.elements.impl.PhpPsiElementImpl;
 import com.jetbrains.php.lang.psi.elements.impl.StringLiteralExpressionImpl;
 
+import static com.intellij.patterns.StandardPatterns.string;
+
 public class PhpPatternsHelper {
     public static final ElementPattern<? extends PsiElement> STRING_METHOD_ARGUMENT =
         PhpPatterns
@@ -28,12 +30,13 @@ public class PhpPatternsHelper {
                     )
             ).withLanguage(PhpLanguage.INSTANCE);
 
-    /* TODO: Works right until 'modules' key */
-    public static final ElementPattern<? extends PsiElement> CONFIGPHP_MODULE =
+    public static final ElementPattern<? extends PsiElement> CONFIGPHP_MODULENAME =
         PlatformPatterns.psiElement(StringLiteralExpressionImpl.class)
             .withSuperParent(5,PlatformPatterns.psiElement(ArrayHashElementImpl.class)
                 .withChild(PlatformPatterns.psiElement(PhpPsiElementImpl.class)
-                    .withChild(PlatformPatterns.psiElement(StringLiteralExpressionImpl.class))
+                    .withChild(PlatformPatterns.psiElement(StringLiteralExpressionImpl.class)
+                        .withText(string().contains("modules"))
+                    )
                 )
             );
 }

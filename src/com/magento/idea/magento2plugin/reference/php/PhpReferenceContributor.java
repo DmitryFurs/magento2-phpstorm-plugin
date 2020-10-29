@@ -26,7 +26,7 @@ public class PhpReferenceContributor extends PsiReferenceContributor {
           ]
          */
         registrar.registerReferenceProvider(
-                PhpPatternsHelper.CONFIGPHP_MODULE,
+                PhpPatternsHelper.CONFIGPHP_MODULENAME,
                 new ModuleNameReferenceProvider()
         );
     }
